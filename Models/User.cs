@@ -14,13 +14,13 @@ namespace Shop.Models
     [MaxLength(20, ErrorMessage = "Este campo deve conter entre 3 e 60 caracteres")]
     [MinLength(3, ErrorMessage = "Este campo deve conter entre 3 e 60 caracteres")]
 
-    public string UserName { get; set; }
+    public string Username { get; set; }
 
     [Required(ErrorMessage = "Este campo é obrigatorio")]
     [MaxLength(20, ErrorMessage = "Este campo deve conter entre 3 e 20 caracteres")]
     [MinLength(3, ErrorMessage = "Este campo deve conter entre 3 e 20 caracteres")]
 
-    public string PassWord { get; set; }
+    public string Password { get; set; }
 
     public string Role { get; set; }
   }

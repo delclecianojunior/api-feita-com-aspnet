@@ -51,10 +51,10 @@ namespace Shop
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddCors();
-      services.AddResponseCompression(options => 
+      services.AddResponseCompression(options =>
       {
         options.Providers.Add<GzipCompressionProvider>();
-        options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] {"application/json"});
+        options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "application/json" });
       });
 
       //services.AddResponseCaching();
@@ -79,10 +79,10 @@ namespace Shop
         };
       });
 
-      services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
-     // services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
-      //services.AddScoped<DataContext, DataContext>(); //Injeção de dependencia 
-      
+      //services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+      services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+      services.AddScoped<DataContext, DataContext>(); //Injeção de dependencia 
+
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop Api", Version = "v1" });
@@ -93,18 +93,18 @@ namespace Shop
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
       if (env.IsDevelopment())
-      {     
+      {
         app.UseDeveloperExceptionPage();
         //O objeto acessa o metodo UseDeveloper Para poder retornar algum erro caso ele nao consiga conectar na porta do banco
       }
 
-        app.UseHttpsRedirection();
-        app.UseSwagger();
-        app.UseSwaggerUI(c =>
-        { 
-          c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shop API V1");
-        });
-      
+      app.UseHttpsRedirection();
+      app.UseSwagger();
+      app.UseSwaggerUI(c =>
+      {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shop API V1");
+      });
+
 
       app.UseRouting();
 
@@ -115,8 +115,8 @@ namespace Shop
 
       app.UseAuthentication();
       app.UseAuthorization(); //Esse metodo vai ser responsavel por dizer o que os roles podem fazer na aplicação 
-      
-      app.UseEndpoints(endpoints => 
+
+      app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
       });
